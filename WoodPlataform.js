@@ -1,23 +1,36 @@
 class WoodPlataform {
     plataform = null
 
-    constructor(scene, position, rotation) {
+    constructor(scene, position, rotation,  h, w, d, animStyle) {
         var plataformMat = new BABYLON.StandardMaterial("plataform",scene);
         plataformMat.ambientTexture = new BABYLON.Texture("/assets/images/woodTexture.jpg", scene); 
-        // Our built-in 'plataform' shape. Params: name, width, depth, subdivs, scene
-        this.plataform = BABYLON.MeshBuilder.CreateBox("box", {height: 3, width: 2.5, depth: .25});
+
+        this.plataform = BABYLON.MeshBuilder.CreateBox("box", {height: h, width: w, depth: d});
         this.plataform.material = plataformMat;
         this.plataform.position = position;
         this.plataform.rotation = rotation;
       
         /*--impostor--*/
         this.plataform.physicsImpostor = new BABYLON.PhysicsImpostor(this.plataform, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution: 0.9}, scene);
+    
+        if(animStyle != "false"){
+            var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
+            wheelPivotParent.position = new BABYLON.Vector3(6.5,-1.5,0);
+            this.plataform.setParent(wheelPivotParent);
+            BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", this.plataform, animStyle, 30, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
+        }
     }
 
     getPlataform() {
        return this.plataform;
     }
    
+    /*animate(animStyle) {
+        var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
+        wheelPivotParent.position = this.plataform.position;
+        this.plataform.setParent(wheelPivotParent);
+        BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, animStyle, 30, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
+    }*/
 }
 
 /*

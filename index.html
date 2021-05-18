@@ -21,6 +21,7 @@
         <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
         <script src="Ball.js"></script>
         <script src="WoodPlataform.js"></script>
+      
 
         <style>
             html, body {
@@ -60,13 +61,13 @@
             
             var woodPlataformRotation = new BABYLON.Vector3(5,Math.PI/2,0);
             var woodPlataformPosition = new BABYLON.Vector3(0,0,0);
-            var woodPlataform = new WoodPlataform(scene, woodPlataformPosition, woodPlataformRotation);
+            var woodPlataform = new WoodPlataform(scene, woodPlataformPosition, woodPlataformRotation, 3, 2.5, 0.25,"false");
             
             var woodPlataformRotation2 = new BABYLON.Vector3(0,Math.PI/2,0);
-            var woodPlataformPosition2 = new BABYLON.Vector3(3.5,-1.5,0);
-            rotatingPlat(scene, woodPlataformPosition2, woodPlataformRotation2,4,2.5,0.25);
-           
-              
+            var woodPlatPos2 = new BABYLON.Vector3(6.5,-1.5,0);
+            var woodPlat2 = new WoodPlataform(scene, woodPlatPos2, woodPlataformRotation2, 4, 2.5, 0.25,"rotation.z");
+            
+             
             do {
                 ball = new Ball(scene);
                 ballCount +=1;
@@ -108,24 +109,6 @@
             camera.attachControl(canvas, true);
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
             return camera;
-        }
-
-        function rotatingPlat(scene, position, rotation, h, w, d) {
-            var plataformMat = new BABYLON.StandardMaterial("plataform",scene);
-            plataformMat.ambientTexture = new BABYLON.Texture("/assets/images/woodTexture.jpg", scene); 
-            
-            var plataform = BABYLON.MeshBuilder.CreateBox("box", {height: h, width: w, depth: d});
-            plataform.material = plataformMat;
-            plataform.position = position;
-            plataform.rotation = rotation;
-
-            plataform.physicsImpostor = new BABYLON.PhysicsImpostor(plataform, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution: 0.9}, scene);
-            var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
-            wheelPivotParent.position = new BABYLON.Vector3(3.5,-1.5,0);
-            plataform.setParent(wheelPivotParent);
-            BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, "rotation.z", 30, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
-            
-            //BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", plataform, "rotation.x", 30, 600, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
         }
 
         // Resize
