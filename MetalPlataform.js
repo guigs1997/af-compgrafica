@@ -1,9 +1,9 @@
-class WoodPlataform {
+class MetalPlataform {
     plataform = null
 
     constructor(scene, position, rotation,  h, w, d) {
         var plataformMat = new BABYLON.StandardMaterial("plataform",scene);
-        plataformMat.ambientTexture = new BABYLON.Texture("/assets/images/woodTexture.jpg", scene); 
+        plataformMat.ambientTexture = new BABYLON.Texture("/assets/images/metaltexture.jpg", scene); 
 
         this.plataform = BABYLON.MeshBuilder.CreateBox("box", {height: h, width: w, depth: d});
         this.plataform.material = plataformMat;
@@ -20,7 +20,7 @@ class WoodPlataform {
        return this.plataform;
     }
 
-    /*animateRotate(position, animPos, axis) {
+    animateRotate(position, animPos, axis) {
         var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
@@ -49,6 +49,16 @@ class WoodPlataform {
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
         wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, -2, 1)
-    }*/
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 5, 1)
+    }
+
+    animateSlideD(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 5, 0, 1)
+    }
+
+
 }

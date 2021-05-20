@@ -21,6 +21,7 @@
         <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
         <script src="Ball.js"></script>
         <script src="WoodPlataform.js"></script>
+        <script src="MetalPlataform.js"></script>
       
 
         <style>
@@ -59,18 +60,68 @@
         	scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), new BABYLON.CannonJSPlugin(false));
             const physEngine = scene.getPhysicsEngine();
             
-            var woodPlataformRotation = new BABYLON.Vector3(5,Math.PI/2,0);
-            var woodPlataformPosition = new BABYLON.Vector3(0,0,0);
-            var woodPlataform = new WoodPlataform(scene, woodPlataformPosition, woodPlataformRotation, 3, 2.5, 0.25,"false");
+            //intial
+            var woodPlatRot = new BABYLON.Vector3(5,Math.PI/2,0);
+            var woodPlatPos = new BABYLON.Vector3(-1.4,0,0);
+            var woodPlat = new WoodPlataform(scene, woodPlatPos, woodPlatRot, 5.5, 2.5, 0.25);
             
-            var woodPlataformRotation2 = new BABYLON.Vector3(0,Math.PI/2,0);
-            var woodPlatPos2 = new BABYLON.Vector3(3.5,-1.5,0);
-            var woodPlat2 = new WoodPlataform(scene, woodPlatPos2, woodPlataformRotation2, 4, 2.5, 0.25,"rotation.z", new BABYLON.Vector3(3.5,0,0));
-        
+            //first rotation
+            var woodPlatRot2 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos2 = new BABYLON.Vector3(2,-1.5,0);
+            var woodPlat2 = new MetalPlataform(scene, woodPlatPos2, woodPlatRot2, 6, 2.5, 0.25);
+            woodPlat2.animateRotate(woodPlatPos2,new BABYLON.Vector3(4.5,0,0),"z")
+
+            //side right
+            var woodPlatRot3 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos3 = new BABYLON.Vector3(8,-6, 0);
+            var woodPlat3 = new WoodPlataform(scene, woodPlatPos3, woodPlatRot3, 20, 4, 0.25,);
+
+            //side left
+            var woodPlatRot4 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos4 = new BABYLON.Vector3(-4,-6, 0);
+            var woodPlat4 = new WoodPlataform(scene, woodPlatPos4, woodPlatRot4, 20, 4, 0.25,);
+
+            //second inclined
+            var woodPlatRot5 = new BABYLON.Vector3(2,-Math.PI/2,0);
+            var woodPlatPos5 = new BABYLON.Vector3(4,-6,0);
+            var woodPlat5 = new WoodPlataform(scene, woodPlatPos5, woodPlatRot5, 9, 2.5, 0.25,);
+
+            //moving L
+            var woodPlatRot6 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
+            var woodPlatPos6 = new BABYLON.Vector3(0,-14,0);
+            var woodPlat6 = new MetalPlataform(scene, woodPlatPos6, woodPlatRot6, 6, 2.5, 0.25);
+            woodPlat6.animateSlideL(woodPlatPos6, new BABYLON.Vector3(2,-14,0), 'x');
+
+            //moving R
+            var woodPlatRot7 = new BABYLON.Vector3(-Math.PI/2,Math.PI/2,0);
+            var woodPlatPos7 = new BABYLON.Vector3(6,-14,0);
+            var woodPlat7 = new MetalPlataform(scene, woodPlatPos7, woodPlatRot7, 6, 2.5, 0.25);
+            woodPlat7.animateSlideR(woodPlatPos7, new BABYLON.Vector3(7,-14,0), 'x');
+            
+            //funnel right
+            var woodPlatRot8 = new BABYLON.Vector3(5.5,-Math.PI/2,0);
+            var woodPlatPos8 = new BABYLON.Vector3(5.7,-18.5,0);
+            var woodPlat8 = new WoodPlataform(scene, woodPlatPos8, woodPlatRot8, 6.7, 3.5, 0.25);
+
+            //funnel right
+            var woodPlatRot8 = new BABYLON.Vector3(5.5,Math.PI/2,0);
+            var woodPlatPos8 = new BABYLON.Vector3(-1.7,-18.5,0);
+            var woodPlat8 = new WoodPlataform(scene, woodPlatPos8, woodPlatRot8, 6.7, 3.5, 0.25);
+
+            var woodPlatRot10 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos10 = new BABYLON.Vector3(6,-14,0);
+            var woodPlat10 = new MetalPlataform(scene, woodPlatPos10, woodPlatRot10, 6, 2.5, 0.25);
+            woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(7,-14,0), 'y');
+
+
+
+
+            var h = 1;
             do {
-                ball = new Ball(scene);
+                ball = new Ball(scene,h);
                 ballCount += 1;
-            }while (ballCount <= 5); 
+                h = h +3;
+            }while (ballCount <= 0); 
             
 
             /*--utilizado para debugar, comente para rodar "normal"--*/
@@ -104,7 +155,7 @@
         });
 
         function createLightAndCamera(scene) {
-            const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, -0.5, 0));
+            const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 30, new BABYLON.Vector3(0, -0.5, 0));
             camera.attachControl(canvas, true);
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
             return camera;
