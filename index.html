@@ -22,6 +22,7 @@
         <script src="Ball.js"></script>
         <script src="WoodPlataform.js"></script>
         <script src="MetalPlataform.js"></script>
+        <script src="Pipe.js"></script>
       
 
         <style>
@@ -108,13 +109,29 @@
             var woodPlatPos8 = new BABYLON.Vector3(-1.7,-18.5,0);
             var woodPlat8 = new WoodPlataform(scene, woodPlatPos8, woodPlatRot8, 6.7, 3.5, 0.25);
 
+            //door up
             var woodPlatRot10 = new BABYLON.Vector3(0,Math.PI/2,0);
-            var woodPlatPos10 = new BABYLON.Vector3(6,-14,0);
-            var woodPlat10 = new MetalPlataform(scene, woodPlatPos10, woodPlatRot10, 6, 2.5, 0.25);
-            woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(7,-14,0), 'y');
+            var woodPlatPos10 = new BABYLON.Vector3(8,-30,0);
+            var woodPlat10 = new MetalPlataform(scene, woodPlatPos10, woodPlatRot10, 6, 4, 0.25);
+            woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(9,-0,0), 'y');
 
+            //door down
+            var woodPlatRot11 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos11 = new BABYLON.Vector3(8,-30,0);
+            var woodPlat11 = new MetalPlataform(scene, woodPlatPos11, woodPlatRot11, 6, 4, 0.25);
+            woodPlat11.animateSlideD(woodPlatPos7, new BABYLON.Vector3(9,0,0), 'y');
 
+            //pipe
+            pipePos = new BABYLON.Vector3(10.5,-14,0);
+            pipeRot = new BABYLON.Vector3(0,0,Math.PI/2);
+            pipeSize = new BABYLON.Vector3(9,9,9);
+            pipe = new Pipe(pipePos,pipeRot,pipeSize);
+            
 
+            //after the pipe
+            var woodPlatRot12 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
+            var woodPlatPos12 = new BABYLON.Vector3(15,-33, 0);
+            var woodPlat12 = new WoodPlataform(scene, woodPlatPos12, woodPlatRot12, 20, 4, 0.25,);
 
             var h = 1;
             do {
@@ -125,7 +142,7 @@
             
 
             /*--utilizado para debugar, comente para rodar "normal"--*/
-            //scene.debugLayer.show();
+            scene.debugLayer.show();
 
             return scene;
         

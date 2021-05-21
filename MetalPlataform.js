@@ -49,7 +49,10 @@ class MetalPlataform {
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
         wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 5, 1)
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 6, 1, )
+            /*onanimationend(window) => {
+
+            });*/
     }
 
     animateSlideD(position, animPos, axis) {
@@ -57,7 +60,7 @@ class MetalPlataform {
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
         wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 5, 0, 1)
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, 0, 1)
     }
 
 
