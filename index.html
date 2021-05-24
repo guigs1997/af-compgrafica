@@ -23,6 +23,7 @@
         <script src="WoodPlataform.js"></script>
         <script src="MetalPlataform.js"></script>
         <script src="Pipe.js"></script>
+        <script src="Bat.js"></script>
       
 
         <style>
@@ -132,6 +133,15 @@
             var woodPlatRot12 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
             var woodPlatPos12 = new BABYLON.Vector3(15,-33, 0);
             var woodPlat12 = new WoodPlataform(scene, woodPlatPos12, woodPlatRot12, 20, 4, 0.25,);
+
+            // Bastão que desce
+            var batPos1 = new BABYLON.Vector3(-2.15,-5,0);
+            var bat1 = new Bat(scene, batPos1, BABYLON.Vector3.Right() ,3.5);
+            bat1.animateSlideD(new BABYLON.Vector3(-2.15,-5,0), new BABYLON.Vector3(-2.15,-5,0), 'y');
+
+            // Bastão Fixo
+            var batPos2 = new BABYLON.Vector3(14,-32,0);
+            var bat2 = new Bat(scene, batPos2, BABYLON.Vector3.Forward(),5);
 
             var h = 1;
             do {
