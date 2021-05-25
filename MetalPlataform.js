@@ -13,13 +13,14 @@ class MetalPlataform {
 
         /*--impostor--*/
         this.plataform.physicsImpostor = new BABYLON.PhysicsImpostor(this.plataform, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution:1}, scene);
-
+    
+        //this.plataform.updatePhysicsBodyPosition();
     }
 
     getPlataform() {
        return this.plataform;
     }
-
+        
     animateRotate(position, animPos, axis) {
         var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
         wheelPivotParent.position = position;
@@ -44,24 +45,30 @@ class MetalPlataform {
         BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 5, -1, 1)
     }
 
-    animateSlideU(position, animPos, axis) {
-        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
-        wheelPivotParent.position = position;
-        this.plataform.setParent(wheelPivotParent);
-        wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 6, 1, )
-            /*onanimationend(window) => {
-
-            });*/
-    }
-
     animateSlideD(position, animPos, axis) {
         var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
         wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, 0, 1)
+        
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, 0, 1);
+
     }
 
+    animateSlideU(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 6, 1, 
+            /*
+            BABYLON.EasingFunction.EASINGMODE_EASEINOUT, 
+            () =>{
+                console.log("yes");
+            }
+            */
+        );
+            
+    }
 
 }

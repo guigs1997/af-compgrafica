@@ -9,9 +9,15 @@ class Ball {
         this.sphere.position.y = height;
         this.sphere.position.x = -2;
         this.sphere.material = sphereMat;
-           
+
         /*--impostor--*/
         this.sphere.physicsImpostor = new BABYLON.PhysicsImpostor(this.sphere, BABYLON.PhysicsImpostor.SphereImpostor, {mass: 1, restitution: 0.9}, scene);   
+    
+        
+    }
+
+    getBall() {
+        return this.sphere;
     }
 
     removeBall(count) {
