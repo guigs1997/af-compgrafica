@@ -91,7 +91,7 @@
             var woodPlatRot2 = new BABYLON.Vector3(0,Math.PI/2,0);
             var woodPlatPos2 = new BABYLON.Vector3(2,-1.5,0);
             var woodPlat2 = new MetalPlataform(scene, woodPlatPos2, woodPlatRot2, 6, 2.5, 0.25);
-            woodPlat2.animateRotate(woodPlatPos2,new BABYLON.Vector3(4.5,0,0),"z")
+            woodPlat2.animatePlat(woodPlatPos2,new BABYLON.Vector3(4.5,0,0),"rotation.z",BABYLON.Tools.ToRadians(0),BABYLON.Tools.ToRadians(-360))
 
             //side right
             var woodPlatRot3 = new BABYLON.Vector3(0,Math.PI/2,0);
@@ -112,13 +112,13 @@
             var woodPlatRot6 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
             var woodPlatPos6 = new BABYLON.Vector3(0,-14,0);
             var woodPlat6 = new MetalPlataform(scene, woodPlatPos6, woodPlatRot6, 6, 2.5, 0.25);
-            woodPlat6.animateSlideL(woodPlatPos6, new BABYLON.Vector3(2,-14,0), 'x');
-
+            woodPlat6.animatePlat(woodPlatPos6, new BABYLON.Vector3(7,-14,0),"position.x",-1, 5,)
+           
             //moving R
             var woodPlatRot7 = new BABYLON.Vector3(-Math.PI/2,Math.PI/2,0);
             var woodPlatPos7 = new BABYLON.Vector3(6,-14,0);
             var woodPlat7 = new MetalPlataform(scene, woodPlatPos7, woodPlatRot7, 6, 2.5, 0.25);
-            woodPlat7.animateSlideR(woodPlatPos7, new BABYLON.Vector3(7,-14,0), 'x');
+            woodPlat7.animatePlat(woodPlatPos7, new BABYLON.Vector3(2,-14,0),"position.x",5, -1);
             
             //funnel right
             var woodPlatRot8 = new BABYLON.Vector3(5.5,-Math.PI/2,0);
@@ -134,14 +134,17 @@
             var woodPlatRot10 = new BABYLON.Vector3(0,Math.PI/2,0);
             var woodPlatPos10 = new BABYLON.Vector3(10,-30,0);
             var woodPlat10 = new MetalPlataform(scene, woodPlatPos10, woodPlatRot10, 6, 3.5, 0.25);
-            woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(9,0,0), 'y');
+            woodPlat10.animatePlat(woodPlatPos7, new BABYLON.Vector3(9,0,0),"position.y",0, 6,);
+            //woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(9,0,0), 'y');
             
             //door down
-         /*   var woodPlatRot11 = new BABYLON.Vector3(0,Math.PI/2,0);
+         /*
+            var woodPlatRot11 = new BABYLON.Vector3(0,Math.PI/2,0);
             var woodPlatPos11 = new BABYLON.Vector3(12,-30,0);
             var woodPlat11 = new MetalPlataform(scene, woodPlatPos11, woodPlatRot11, 6, 8, 0.25);
             woodPlat11.animateSlideD(scene, woodPlatPos11, new BABYLON.Vector3(9,0,0), 'y');
-*/
+        */
+       
             //pipe
             let size = 0.05;
             pipePos = new BABYLON.Vector3(3,-22,0);
@@ -185,9 +188,7 @@
             var h = 1;
             do {
                 ball = new Ball(scene,h);
-                
                 b = ball.getBall();
-                b.position.x = -5;
                 b.actionManager = new BABYLON.ActionManager(scene);
                 ballCount += 1;
                 h = h +3;
