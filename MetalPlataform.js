@@ -20,55 +20,13 @@ class MetalPlataform {
     getPlataform() {
        return this.plataform;
     }
-        
-    animateRotate(position, animPos, axis) {
+
+    animatePlat(position, animPos, animType, initPos,finalPos) {
         var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
         wheelPivotParent.position = position;
         this.plataform.setParent(wheelPivotParent);
         wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, "rotation."+axis, 15, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
-    }
-   
-    animateSlideL(position, animPos, axis) {
-        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
-        wheelPivotParent.position = position;
-        this.plataform.setParent(wheelPivotParent);
-        wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, -1, 5, 1)
-    }
-
-    animateSlideR(position, animPos, axis) {
-        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
-        wheelPivotParent.position = position;
-        this.plataform.setParent(wheelPivotParent);
-        wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 5, -1, 1)
-    }
-
-    animateSlideD(position, animPos, axis) {
-        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
-        wheelPivotParent.position = position;
-        this.plataform.setParent(wheelPivotParent);
-        wheelPivotParent.position = animPos;
-        
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, 0, 1);
-
-    }
-
-    animateSlideU(position, animPos, axis) {
-        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
-        wheelPivotParent.position = position;
-        this.plataform.setParent(wheelPivotParent);
-        wheelPivotParent.position = animPos;
-        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 0, 6, 1, 
-            /*
-            BABYLON.EasingFunction.EASINGMODE_EASEINOUT, 
-            () =>{
-                console.log("yes");
-            }
-            */
-        );
-            
+        BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, animType, 20, 60, initPos, finalPos, 1)
     }
 
 }
