@@ -24,6 +24,7 @@
         <script src="MetalPlataform.js"></script>
         <script src="Pipe.js"></script>
         <script src="Bat.js"></script>      
+        <script src="Balloon.js"></script> 
 
         <style>
             html, body {
@@ -173,17 +174,19 @@
             bat1.animateSlideD(new BABYLON.Vector3(-2.15,-5,0), new BABYLON.Vector3(-2.15,-5,0), 'y');
 
             // Bastão Fixo
-            var batPos2 = new BABYLON.Vector3(14,-32,0);
-            var bat2 = new Bat(scene, batPos2, BABYLON.Vector3.Forward(),5);
+            var batPos2 = new BABYLON.Vector3(26,-32,0);
+            var bat2 = new Bat(scene, batPos2, BABYLON.Vector3.Forward(),4, 0.25);
 
             // Bastão que desce
             var batPos1 = new BABYLON.Vector3(-2.15,-5,0);
-            var bat1 = new Bat(scene, batPos1, BABYLON.Vector3.Right() ,3.5);
+            var bat1 = new Bat(scene, batPos1, BABYLON.Vector3.Right() ,3.5, 0.5);
             bat1.animateSlideD(new BABYLON.Vector3(-2.15,-5,0), new BABYLON.Vector3(-2.15,-5,0), 'y');
 
-            // Bastão Fixo
-            var batPos2 = new BABYLON.Vector3(14,-32,0);
-            var bat2 = new Bat(scene, batPos2, BABYLON.Vector3.Forward(),5);
+            // Balão
+            var balloonPos1 = new BABYLON.Vector3(34.45,-45,0);
+            var balloon1 = new Balloon(scene, balloonPos1, BABYLON.Vector3.Up(),10);
+            balloon1.animateSlideU(new BABYLON.Vector3(34.45,-45,0), new BABYLON.Vector3(34.45,-45,0), 'y');
+
 
             var h = 1;
             do {

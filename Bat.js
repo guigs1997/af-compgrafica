@@ -2,11 +2,11 @@ class Bat
 {
     bat = null
 
-    constructor(scene, position, rotation, h) {
+    constructor(scene, position, rotation, h, r) {
         var batMat = new BABYLON.StandardMaterial("bat",scene);
         batMat.ambientTexture = new BABYLON.Texture("/assets/images/espumatexture.jpg", scene); 
 
-        this.bat = new BABYLON.MeshBuilder.CreateCapsule("capsule", {radius:0.5, capSubdivisions: 6, subdivisions:6, tessellation:36,height: h, orientation:rotation});
+        this.bat = new BABYLON.MeshBuilder.CreateCapsule("capsule", {radius:r, capSubdivisions: 6, subdivisions:6, tessellation:36,height: h, orientation:rotation});
         this.bat.material = batMat;
         this.bat.position = position;
 
