@@ -25,6 +25,7 @@
         <script src="Pipe.js"></script>
         <script src="Bat.js"></script>      
         <script src="Balloon.js"></script> 
+        <script src="Wheel.js"></script>
 
         <style>
             html, body {
@@ -187,6 +188,10 @@
             var balloon1 = new Balloon(scene, balloonPos1, BABYLON.Vector3.Up(),10);
             balloon1.animateSlideU(new BABYLON.Vector3(34.45,-45,0), new BABYLON.Vector3(34.45,-45,0), 'y');
 
+            //Roda
+            var wheelPos1 = new BABYLON.Vector3(5.7,-17.5,0);
+            var wheelRot1 = new BABYLON.Vector3(5.5,Math.PI/2,0);
+            var wheel1 = new Wheel(scene, wheelPos1, wheelRot1, 1, 3);
 
             var h = 1;
             do {
@@ -214,7 +219,7 @@
             );
 
             /*--utilizado para debugar, comente para rodar "normal"--*/
-            scene.debugLayer.show();
+            //scene.debugLayer.show();
 
             return scene;
         
