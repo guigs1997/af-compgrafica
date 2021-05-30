@@ -3,6 +3,7 @@ class Bat
     bat = null
 
     constructor(scene, position, rotation, h, r) {
+        
         var batMat = new BABYLON.StandardMaterial("bat",scene);
         batMat.ambientTexture = new BABYLON.Texture("/assets/images/espumatexture.jpg", scene); 
 
