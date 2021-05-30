@@ -1,3 +1,6 @@
+<!--Guilherme C. Gasperotto 161157-->
+<!--Matheus Lima de Almeida 180018-->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,7 +61,7 @@
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});};
         var createScene = function () {
             var scene = new BABYLON.Scene(engine);
-            
+
             createLightAndCamera(scene);
         
         	scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), new BABYLON.CannonJSPlugin(false));
