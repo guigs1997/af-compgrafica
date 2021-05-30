@@ -21,7 +21,11 @@
         <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
         <script src="Ball.js"></script>
         <script src="WoodPlataform.js"></script>
-      
+        <script src="MetalPlataform.js"></script>
+        <script src="Pipe.js"></script>
+        <script src="Bat.js"></script>      
+        <script src="Balloon.js"></script> 
+        <script src="Wheel.js"></script>
 
         <style>
             html, body {
@@ -49,6 +53,7 @@
         var sceneToRender = null;
         var ballCount = 0;
         var ball = null;
+        var killBox = null;
 
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});};
         var createScene = function () {
@@ -57,21 +62,161 @@
             createLightAndCamera(scene);
         
         	scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), new BABYLON.CannonJSPlugin(false));
+
             const physEngine = scene.getPhysicsEngine();
             
-            var woodPlataformRotation = new BABYLON.Vector3(5,Math.PI/2,0);
-            var woodPlataformPosition = new BABYLON.Vector3(0,0,0);
-            var woodPlataform = new WoodPlataform(scene, woodPlataformPosition, woodPlataformRotation, 3, 2.5, 0.25,"false");
+            killBox = createKillBox(scene);
+
+            //Proteção de trás
+            var BProtecPos = new BABYLON.Vector3(2,-9,2);
+            var BProtecRot = new BABYLON.Vector3(0,0,0);
+            var BProtec = new WoodPlataform(scene, BProtecPos, BProtecRot, 26, 12, 0.25);
+
+            //proteção frontal
+            var FProtecPos = new BABYLON.Vector3(2,-9,-2);
+            var FProtecRot = new BABYLON.Vector3(0,0,0);
+            var FProtec = new WoodPlataform(scene, FProtecPos, FProtecRot, 26, 12, 0.25);
+            box = FProtec.getPlataform(); 
+            box.visibility = 0;
+
+            //teto
+            var roofPos = new BABYLON.Vector3(2,4,0);
+            var roofRot = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
+            var roof = new WoodPlataform(scene, roofPos, roofRot, 13, 4.5, 0.25);
+
+            //intial
+            var woodPlatRot = new BABYLON.Vector3(5,Math.PI/2,0);
+            var woodPlatPos = new BABYLON.Vector3(-1.4,0,0);
+            var woodPlat = new WoodPlataform(scene, woodPlatPos, woodPlatRot, 5.5, 2.5, 0.25);
             
-            var woodPlataformRotation2 = new BABYLON.Vector3(0,Math.PI/2,0);
-            var woodPlatPos2 = new BABYLON.Vector3(3.5,-1.5,0);
-            var woodPlat2 = new WoodPlataform(scene, woodPlatPos2, woodPlataformRotation2, 4, 2.5, 0.25,"rotation.z", new BABYLON.Vector3(3.5,0,0));
-        
+            //first rotation
+            var woodPlatRot2 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos2 = new BABYLON.Vector3(2,-1.5,0);
+            var woodPlat2 = new MetalPlataform(scene, woodPlatPos2, woodPlatRot2, 6, 2.5, 0.25);
+            woodPlat2.animatePlat(woodPlatPos2,new BABYLON.Vector3(4.5,0,0),"rotation.z",BABYLON.Tools.ToRadians(0),BABYLON.Tools.ToRadians(-360))
+
+            //side right
+            var woodPlatRot3 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos3 = new BABYLON.Vector3(8,-6, 0);
+            var woodPlat3 = new WoodPlataform(scene, woodPlatPos3, woodPlatRot3, 20, 4, 0.25,);
+
+            //side left
+            var woodPlatRot4 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos4 = new BABYLON.Vector3(-4,-6, 0);
+            var woodPlat4 = new WoodPlataform(scene, woodPlatPos4, woodPlatRot4, 20, 4, 0.25,);
+
+            //second inclined
+            var woodPlatRot5 = new BABYLON.Vector3(2,-Math.PI/2,0);
+            var woodPlatPos5 = new BABYLON.Vector3(4,-6,0);
+            var woodPlat5 = new WoodPlataform(scene, woodPlatPos5, woodPlatRot5, 9, 2.5, 0.25,);
+
+            //moving L
+            var woodPlatRot6 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
+            var woodPlatPos6 = new BABYLON.Vector3(0,-14,0);
+            var woodPlat6 = new MetalPlataform(scene, woodPlatPos6, woodPlatRot6, 6, 2.5, 0.25);
+            woodPlat6.animatePlat(woodPlatPos6, new BABYLON.Vector3(7,-14,0),"position.x",-1, 5,)
+           
+            //moving R
+            var woodPlatRot7 = new BABYLON.Vector3(-Math.PI/2,Math.PI/2,0);
+            var woodPlatPos7 = new BABYLON.Vector3(6,-14,0);
+            var woodPlat7 = new MetalPlataform(scene, woodPlatPos7, woodPlatRot7, 6, 2.5, 0.25);
+            woodPlat7.animatePlat(woodPlatPos7, new BABYLON.Vector3(2,-14,0),"position.x",5, -1);
+            
+            //funnel right
+            var woodPlatRot8 = new BABYLON.Vector3(5.5,-Math.PI/2,0);
+            var woodPlatPos8 = new BABYLON.Vector3(5.7,-18.5,0);
+            var woodPlat8 = new WoodPlataform(scene, woodPlatPos8, woodPlatRot8, 6.7, 3.5, 0.25);
+
+            //funnel right
+            var woodPlatRot8 = new BABYLON.Vector3(5.5,Math.PI/2,0);
+            var woodPlatPos8 = new BABYLON.Vector3(-1.7,-18.5,0);
+            var woodPlat8 = new WoodPlataform(scene, woodPlatPos8, woodPlatRot8, 6.7, 3.5, 0.25);
+
+            //door up
+            var woodPlatRot10 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos10 = new BABYLON.Vector3(10,-30,0);
+            var woodPlat10 = new MetalPlataform(scene, woodPlatPos10, woodPlatRot10, 6, 3.5, 0.25);
+            woodPlat10.animatePlat(woodPlatPos7, new BABYLON.Vector3(9,0,0),"position.y",0, 6,);
+            //woodPlat10.animateSlideU(woodPlatPos7, new BABYLON.Vector3(9,0,0), 'y');
+            
+            //door down
+         /*
+            var woodPlatRot11 = new BABYLON.Vector3(0,Math.PI/2,0);
+            var woodPlatPos11 = new BABYLON.Vector3(12,-30,0);
+            var woodPlat11 = new MetalPlataform(scene, woodPlatPos11, woodPlatRot11, 6, 8, 0.25);
+            woodPlat11.animateSlideD(scene, woodPlatPos11, new BABYLON.Vector3(9,0,0), 'y');
+        */
+       
+            //pipe
+            let size = 0.05;
+            pipePos = new BABYLON.Vector3(3,-22,0);
+            pipeRot = new BABYLON.Vector3(0,0,Math.PI);
+            pipeSize = new BABYLON.Vector3(size,size,size);
+            pipe = new Pipe(pipePos,pipeRot,pipeSize);
+            
+            //after the pipe
+            var woodPlatRot12 = new BABYLON.Vector3(Math.PI/2,Math.PI/2,0);
+            var woodPlatPos12 = new BABYLON.Vector3(18,-33, 0);
+            var woodPlat12 = new WoodPlataform(scene, woodPlatPos12, woodPlatRot12, 25, 4, 0.25,);
+
+            //frontal protection
+            var sideFRot = new BABYLON.Vector3(0,0,Math.PI/2);
+            var sideFPos = new BABYLON.Vector3(18,-31, -2);
+            var sideF = new WoodPlataform(scene, sideFPos, sideFRot, 25, 4, 0.25,);
+
+            //frontal protection
+            var sideBRot = new BABYLON.Vector3(0,0,Math.PI/2);
+            var sideBPos = new BABYLON.Vector3(18,-31, 2);
+            var sideB = new WoodPlataform(scene, sideBPos, sideBRot, 25, 4, 0.25,);
+
+            // Bastão que desce
+            var batPos1 = new BABYLON.Vector3(-2.15,-5,0);
+            var bat1 = new Bat(scene, batPos1, BABYLON.Vector3.Right() ,3.5);
+            bat1.animateSlideD(new BABYLON.Vector3(-2.15,-5,0), new BABYLON.Vector3(-2.15,-5,0), 'y');
+
+            // Bastão Fixo
+            var batPos2 = new BABYLON.Vector3(26,-32,0);
+            var bat2 = new Bat(scene, batPos2, BABYLON.Vector3.Forward(),4, 0.25);
+
+            // Bastão que desce
+            var batPos1 = new BABYLON.Vector3(-2.15,-5,0);
+            var bat1 = new Bat(scene, batPos1, BABYLON.Vector3.Right() ,3.5, 0.5);
+            bat1.animateSlideD(new BABYLON.Vector3(-2.15,-5,0), new BABYLON.Vector3(-2.15,-5,0), 'y');
+
+            // Balão
+            var balloonPos1 = new BABYLON.Vector3(34.45,-45,0);
+            var balloon1 = new Balloon(scene, balloonPos1, BABYLON.Vector3.Up(),10);
+            balloon1.animateSlideU(new BABYLON.Vector3(34.45,-45,0), new BABYLON.Vector3(34.45,-45,0), 'y');
+
+            //Roda
+            var wheelPos1 = new BABYLON.Vector3(5.7,-17.5,0);
+            var wheelRot1 = new BABYLON.Vector3(5.5,Math.PI/2,0);
+            var wheel1 = new Wheel(scene, wheelPos1, wheelRot1, 1, 3);
+
+            var h = 1;
             do {
-                ball = new Ball(scene);
+                ball = new Ball(scene,h);
+                b = ball.getBall();
+                b.actionManager = new BABYLON.ActionManager(scene);
                 ballCount += 1;
-            }while (ballCount <= 5); 
+                h = h +3;
+            }while (ballCount <= 0); 
             
+
+            b.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(
+                    {
+                    trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter:killBox
+                    }, 
+                    function(){
+                        BABYLON.Animation.CreateAndStartAnimation("marbleVisAnim", b, "visibility", 30, 30, 1, 0, 0, null, () => {
+                            b.dispose();
+                            ballCount -= 1;
+                        });
+                    }
+                )
+            );
 
             /*--utilizado para debugar, comente para rodar "normal"--*/
             //scene.debugLayer.show();
@@ -104,10 +249,17 @@
         });
 
         function createLightAndCamera(scene) {
-            const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, -0.5, 0));
+            const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 30, new BABYLON.Vector3(0, -0.5, 0));
             camera.attachControl(canvas, true);
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
             return camera;
+        }
+
+        function createKillBox (scene) {
+            var killBox = BABYLON.MeshBuilder.CreateBox("killBox", {width:100, depth:100, height:0.5}, scene);
+            killBox.position = new BABYLON.Vector3(0,-40,0);
+            killBox.visibility = 0;
+            return killBox;   
         }
 
         // Resize

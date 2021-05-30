@@ -1,7 +1,7 @@
 class WoodPlataform {
     plataform = null
 
-    constructor(scene, position, rotation,  h, w, d, animStyle, animPos) {
+    constructor(scene, position, rotation,  h, w, d) {
         var plataformMat = new BABYLON.StandardMaterial("plataform",scene);
         plataformMat.ambientTexture = new BABYLON.Texture("/assets/images/woodTexture.jpg", scene); 
 
@@ -12,46 +12,43 @@ class WoodPlataform {
 
 
         /*--impostor--*/
-        this.plataform.physicsImpostor = new BABYLON.PhysicsImpostor(this.plataform, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution: 0.9}, scene);
+        this.plataform.physicsImpostor = new BABYLON.PhysicsImpostor(this.plataform, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution:1}, scene);
 
-        if(animStyle != "false"){
-            var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
-            wheelPivotParent.position = position;
-            this.plataform.setParent(wheelPivotParent);
-            wheelPivotParent.position = animPos;
-            BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, animStyle, 30, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
-        }
     }
 
     getPlataform() {
        return this.plataform;
     }
+
+    /*animateRotate(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("wheelPivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("marbleTowerWheelRot", wheelPivotParent, "rotation."+axis, 15, 60, BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(-360), 1)
+    }
    
+    animateSlideL(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, -1, 5, 1)
+    }
+
+    animateSlideR(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 5, -1, 1)
+    }
+
+    animateSlideU(position, animPos, axis) {
+        var wheelPivotParent = new BABYLON.TransformNode("PivotParent");
+        wheelPivotParent.position = position;
+        this.plataform.setParent(wheelPivotParent);
+        wheelPivotParent.position = animPos;
+        BABYLON.Animation.CreateAndStartAnimation("sliding", wheelPivotParent, "position."+axis, 20, 60, 6, -2, 1)
+    }*/
 }
-
-/*
- const animPlat = new BABYLON.Animation("plataformAnimation", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-
-            const platKeys = []; 
-
-            //At the animation key 0, the value of rotation.y is 0
-            platKeys.push({
-                frame: 0,
-                value: 0
-            });
-
-            //At the animation key 30, (after 1 sec since animation fps = 30) the value of rotation.y is 2PI for a complete rotation
-            platKeys.push({
-                frame: 30,
-                value: 2 * Math.PI
-            });
-
-            //set the keys
-            animPlat.setKeys(platKeys);
-
-            //Link this animation to a ground
-            plataform.animations = [];
-            plataform.animations.push(animPlat);
-
-            scene.beginAnimation(plataform, 0, 30, true);
-*/
